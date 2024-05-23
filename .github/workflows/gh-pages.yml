@@ -23,8 +23,8 @@ jobs:
     - name: Install dependencies
       run: yarn install
 
-    - name: Build
-      run: yarn run build
+    - name: Build for gh-page
+      run: yarn run build:gh
 
     - name: Copy error files to redirect to home
       run: yarn run copy-error-page
