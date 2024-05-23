@@ -36,4 +36,4 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         base_href: /essentials-18/   # make sure this corresponds to https://<your_username>.github.io/<base_href>/
         deploy_branch: gh-pages 
-        publish_dir: dist/essentials-18
+        publish_dir: dist/essentials-18/browser
