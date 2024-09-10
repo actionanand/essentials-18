@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { DUMMY_USERS } from '../../shared/users-data/dummy-users';
-
-const randUserInd = Math.floor(Math.random() * DUMMY_USERS.length);
+// import { DUMMY_USERS } from '../../shared/users-data/dummy-users';
 
 @Component({
   selector: 'app-user',
@@ -12,9 +10,14 @@ const randUserInd = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.component.scss',
 })
 export class UserComponent {
-  selectedUser = DUMMY_USERS[randUserInd];
+  @Input()
+  userData!: {
+    id: string;
+    name: string;
+    avatar: string;
+  };
 
-  get imagePath() {
-    return 'users/' + this.selectedUser.avatar;
+  onSelectUser() {
+    return;
   }
 }
