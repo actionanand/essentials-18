@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output } from '@angular/core';
+// import { output } from '@angular/core';
 
-// import { DUMMY_USERS } from '../../shared/users-data/dummy-users';
+import { capitalize1stLetter } from '../../shared/functions/capitalize1stLetter';
 
 @Component({
   selector: 'app-user',
@@ -10,14 +11,20 @@ import { Component, Input } from '@angular/core';
   styleUrl: './user.component.scss',
 })
 export class UserComponent {
-  @Input()
-  userData!: {
-    id: string;
-    name: string;
-    avatar: string;
-  };
+  @Input({ required: true }) avatar!: string;
+
+  name = input('Test User', {
+    alias: 'peyar',
+    transform: (value: string) => capitalize1stLetter(value),
+  });
+
+  id = input.required<string>();
+
+  @Output() selectUser = new EventEmitter<string>();
+
+  // selectUser = output<string>();
 
   onSelectUser() {
-    return;
+    this.selectUser.emit(this.id());
   }
 }
