@@ -26,6 +26,10 @@ button:active,
   color: #150722;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 img {
   width: 2rem;
   object-fit: contain;
