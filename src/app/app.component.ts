@@ -6,8 +6,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { UserComponent } from './components/user/user.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 
-import { DUMMY_USERS } from './shared/users-data/dummy-users';
-import { User } from './model/user-data.model';
+import { DUMMY_USERS } from './shared/local-data/dummy-users';
+import { type User } from './model/user-data.model';
 
 @Component({
   selector: 'app-root',
