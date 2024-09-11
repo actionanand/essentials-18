@@ -17,14 +17,15 @@ import { User } from './model/user-data.model';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  fallbackStatement = 'Please select a user!';
   users: User[] = DUMMY_USERS;
-  selectedUser: User = DUMMY_USERS[0];
+  selectedUserId?: string;
+
+  get selectedUser() {
+    return this.users.find(user => user.id === this.selectedUserId);
+  }
 
   onSelectUser(id: string) {
-    this.users.forEach(user => {
-      if (user.id === id) {
-        this.selectedUser = user;
-      }
-    });
+    this.selectedUserId = id;
   }
 }
