@@ -1,6 +1,7 @@
 import { Component, Input, input } from '@angular/core';
 
 import { TaskComponent } from './task/task.component';
+import { NewTaskComponent } from './new-task/new-task.component';
 
 import { capitalize1stLetter } from '../../shared/functions/capitalize1stLetter';
 import { dummyTasks } from '../../shared/local-data/dummy-tasks';
@@ -9,7 +10,7 @@ import { type Task } from '../../model/task-data.model';
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss',
 })
@@ -23,7 +24,21 @@ export class TasksComponent {
 
   tasks: Task[] = dummyTasks;
 
+  isAddingTask = false;
+
   get selectedTasks() {
     return this.tasks.filter(task => task.userId === this.id);
+  }
+
+  onCompleteTask(id: string) {
+    this.tasks = this.tasks.filter(task => task.id !== id);
+  }
+
+  onStartAddTask() {
+    this.isAddingTask = true;
+  }
+
+  onCloseDialog(isDialogOpen: boolean) {
+    this.isAddingTask = isDialogOpen;
   }
 }
