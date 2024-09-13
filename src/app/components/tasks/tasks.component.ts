@@ -5,7 +5,7 @@ import { NewTaskComponent } from './new-task/new-task.component';
 
 import { capitalize1stLetter } from '../../shared/functions/capitalize1stLetter';
 import { dummyTasks } from '../../shared/local-data/dummy-tasks';
-import { type Task } from '../../model/task-data.model';
+import { type TaskData, type Task } from '../../model/task-data.model';
 
 @Component({
   selector: 'app-tasks',
@@ -36,6 +36,18 @@ export class TasksComponent {
 
   onStartAddTask() {
     this.isAddingTask = true;
+  }
+
+  OnAddNewTask(task: TaskData) {
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      title: task.title,
+      summary: task.summary,
+      dueDate: task.dueDate,
+      userId: this.id,
+    });
+
+    this.isAddingTask = false;
   }
 
   onCloseDialog(isDialogOpen: boolean) {
