@@ -2,10 +2,10 @@ import { Component, Input, input } from '@angular/core';
 
 import { TaskComponent } from './task/task.component';
 import { NewTaskComponent } from './new-task/new-task.component';
+import { TaskServiceComponent } from '../../services/task.service';
 
 import { capitalize1stLetter } from '../../shared/functions/capitalize1stLetter';
-import { dummyTasks } from '../../shared/local-data/dummy-tasks';
-import { type TaskData, type Task } from '../../model/task-data.model';
+import { type TaskData } from '../../model/task-data.model';
 
 @Component({
   selector: 'app-tasks',
@@ -15,6 +15,8 @@ import { type TaskData, type Task } from '../../model/task-data.model';
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent {
+  constructor(private taskServ: TaskServiceComponent) {}
+
   name = input('Test User', {
     alias: 'peyar',
     transform: (value: string) => capitalize1stLetter(value),
@@ -22,16 +24,14 @@ export class TasksComponent {
 
   @Input({ required: true }) id!: string;
 
-  tasks: Task[] = dummyTasks;
-
   isAddingTask = false;
 
   get selectedTasks() {
-    return this.tasks.filter(task => task.userId === this.id);
+    return this.taskServ.getSelectedTasks(this.id);
   }
 
   onCompleteTask(id: string) {
-    this.tasks = this.tasks.filter(task => task.id !== id);
+    this.taskServ.removeTask(id);
   }
 
   onStartAddTask() {
@@ -39,14 +39,7 @@ export class TasksComponent {
   }
 
   OnAddNewTask(task: TaskData) {
-    this.tasks.unshift({
-      id: new Date().getTime().toString(),
-      title: task.title,
-      summary: task.summary,
-      dueDate: task.dueDate,
-      userId: this.id,
-    });
-
+    this.taskServ.addNewTask(task, this.id);
     this.isAddingTask = false;
   }
 

@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 import { HeaderComponent } from './components/header/header.component';
 import { UserComponent } from './components/user/user.component';
 import { TasksComponent } from './components/tasks/tasks.component';
-
-import { DUMMY_USERS } from './shared/local-data/dummy-users';
+import { UserServiceComponent } from './services/user.service';
 import { type User } from './model/user-data.model';
 
 @Component({
@@ -16,13 +15,21 @@ import { type User } from './model/user-data.model';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  userServ = inject(UserServiceComponent);
+
+  users: User[] = [];
+
+  ngOnInit(): void {
+    this.users = this.userServ.getAllUsers();
+  }
+
   fallbackStatement = 'Please select a user!';
-  users: User[] = DUMMY_USERS;
+
   selectedUserId?: string;
 
   get selectedUser() {
-    return this.users.find(user => user.id === this.selectedUserId);
+    return this.userServ.findUser(this.selectedUserId);
   }
 
   onSelectUser(id: string) {
