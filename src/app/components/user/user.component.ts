@@ -1,12 +1,14 @@
 import { Component, EventEmitter, input, Input, Output } from '@angular/core';
 // import { output } from '@angular/core';
 
+import { CardComponent } from '../../shared/ui/card/card.component';
+
 import { capitalize1stLetter } from '../../shared/functions/capitalize1stLetter';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [],
+  imports: [CardComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
 })
